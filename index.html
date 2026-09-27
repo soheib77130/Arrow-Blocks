@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F5F0">
+  <title>Arrow Blocks - Flèche Casse-tête</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- =====================================================================
+         1. MENU PRINCIPAL (Overlay plein écran masquant le plateau)
+         ===================================================================== -->
+    <div id="main-menu" class="main-menu-overlay">
+      <div class="menu-content">
+        <!-- Logo & Flèches animées décoratives -->
+        <div class="menu-logo-container">
+          <div class="menu-arrow-trio">
+            <div class="menu-tile tile-1 dir-RIGHT">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <polyline points="5 11 12 4 19 11"></polyline>
+              </svg>
+            </div>
+            <div class="menu-tile tile-2 dir-DOWN">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <polyline points="5 11 12 4 19 11"></polyline>
+              </svg>
+            </div>
+            <div class="menu-tile tile-3 dir-UP">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <polyline points="5 11 12 4 19 11"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="main-title">Arrow Blocks</h1>
+        <p class="main-subtitle">Flèche Casse-tête Minimaliste</p>
+        <p class="main-tagline">Propulsez les couleurs, évitez les collisions et remplissez 100% de la grille !</p>
+
+        <!-- Actions du menu principal -->
+        <div class="menu-actions">
+          <button id="btn-menu-play" class="btn-primary btn-menu-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+            <span id="btn-menu-play-text">JOUER</span>
+          </button>
+          <button id="btn-menu-new-run" class="btn-secondary btn-menu-sub hidden">
+            <span>Nouvelle partie</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         2. POP-UP DES RÈGLES / TUTORIEL (Modal avec 2 colonnes explicatives)
+         ===================================================================== -->
+    <div id="tutorial-modal" class="modal-overlay hidden" aria-hidden="true">
+      <div class="modal-card tutorial-card">
+        <h2 class="tutorial-title">BIENVENUE DANS ARROW BLOCKS - RÈGLES</h2>
+
+        <div class="tutorial-columns">
+          <!-- Colonne Gauche : COLLISIONS INTERDITES -->
+          <div class="tutorial-col col-forbidden">
+            <div class="tutorial-col-header">
+              <span class="tutorial-badge-icon badge-danger">❌</span>
+              <h3 class="col-title">COLLISIONS INTERDITES</h3>
+            </div>
+            
+            <div class="demo-box demo-collision">
+              <div class="demo-grid-row">
+                <div class="demo-arrow dir-RIGHT arrow-pink">
+                  <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <polyline points="5 11 12 4 19 11"></polyline>
+                  </svg>
+                </div>
+                <div class="collision-cross-indicator">
+                  <span class="cross-icon">✕</span>
+                </div>
+                <div class="demo-arrow dir-LEFT arrow-teal">
+                  <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <polyline points="5 11 12 4 19 11"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <p class="tutorial-desc">
+              Chaque flèche doit impérativement s'arrêter contre un obstacle. Ne peignez pas contre une flèche non peinte.
+            </p>
+          </div>
+
+          <!-- Colonne Droite : MOUVEMENTS AUTORISÉS -->
+          <div class="tutorial-col col-allowed">
+            <div class="tutorial-col-header">
+              <span class="tutorial-badge-icon badge-success">🚀</span>
+              <h3 class="col-title">MOUVEMENTS AUTORISÉS</h3>
+            </div>
+
+            <!-- Démo 1 : Vers le mur -->
+            <div class="demo-item">
+              <div class="demo-box demo-wall">
+                <div class="demo-grid-row">
+                  <span class="check-indicator">✅</span>
+                  <div class="demo-arrow dir-RIGHT arrow-amber">
+                    <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <polyline points="5 11 12 4 19 11"></polyline>
+                    </svg>
+                  </div>
+                  <div class="demo-track">
+                    <span class="track-flow"></span>
+                  </div>
+                  <div class="demo-wall-barrier" title="Bord de la grille"></div>
+                </div>
+              </div>
+              <p class="tutorial-desc-sub">Aller jusqu'au mur pour s'arrêter</p>
+            </div>
+
+            <!-- Démo 2 : Vers une couleur déjà peinte -->
+            <div class="demo-item">
+              <div class="demo-box demo-painted">
+                <div class="demo-grid-row">
+                  <span class="check-indicator">✅</span>
+                  <div class="demo-arrow dir-RIGHT arrow-blue">
+                    <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <polyline points="5 11 12 4 19 11"></polyline>
+                    </svg>
+                  </div>
+                  <div class="demo-track">
+                    <span class="track-flow track-flow-purple"></span>
+                  </div>
+                  <div class="demo-painted-block" title="Case déjà remplie"></div>
+                </div>
+              </div>
+              <p class="tutorial-desc-sub">S'arrêter contre une couleur peinte existante</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Spéciale : CROISEMENT DE FLÈCHES / ORDRE DE PASSAGE -->
+        <div class="tutorial-intersection-box">
+          <div class="intersection-header">
+            <span class="intersection-badge-icon">🔀</span>
+            <h3 class="intersection-title">CROISEMENT DE FLÈCHES : QUI PASSE EN PREMIER ?</h3>
+          </div>
+
+          <div class="intersection-content">
+            <div class="intersection-steps">
+              <!-- Étape 1 -->
+              <div class="intersection-step">
+                <div class="step-badge">1️⃣ En premier</div>
+                <div class="step-visual">
+                  <div class="mini-tile arrow-blue dir-RIGHT">
+                    <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <polyline points="5 11 12 4 19 11"></polyline>
+                    </svg>
+                  </div>
+                  <span class="step-track track-blue"></span>
+                  <div class="step-wall" title="Mur du fond"></div>
+                </div>
+                <p class="step-text">La flèche qui va <strong>jusqu'au mur</strong> peint en 1er pour créer l'obstacle.</p>
+              </div>
+
+              <div class="step-arrow-separator">➔</div>
+
+              <!-- Étape 2 -->
+              <div class="intersection-step">
+                <div class="step-badge">2️⃣ En second</div>
+                <div class="step-visual">
+                  <div class="mini-tile arrow-purple dir-DOWN">
+                    <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <polyline points="5 11 12 4 19 11"></polyline>
+                    </svg>
+                  </div>
+                  <span class="step-track track-purple"></span>
+                  <div class="step-painted-target" title="Couleur déjà peinte"></div>
+                </div>
+                <p class="step-text">La flèche perpendiculaire peut alors s'arrêter <strong>contre cette couleur</strong> !</p>
+              </div>
+            </div>
+
+            <div class="intersection-tip">
+              💡 <strong>Règle d'or :</strong> Si deux flèches se croisent sur une case vide, activez d'abord celle qui va au mur ! La seconde a besoin de sa couleur pour ne pas dépasser.
+            </div>
+          </div>
+        </div>
+
+        <!-- Grand bouton de validation JOUER ! -->
+        <button id="btn-start-game" class="btn-primary btn-start-game">
+          <span>JOUER !</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- En-tête : Badge Niveau, Score, Chronomètre & Boutons d'Action -->
+    <header class="game-header">
+      <div class="header-left">
+        <div class="level-badge">
+          <span class="level-label">NIV.</span>
+          <span id="level-number" class="level-number">1</span>
+        </div>
+        <div class="score-badge" title="Points cumulés (1 pt par case peinte)">
+          <span class="score-icon">★</span>
+          <span id="score-text" class="score-number">0</span>
+          <span class="score-unit">pts</span>
+        </div>
+      </div>
+
+      <!-- Chronomètre dégressif & Bonus actif -->
+      <div class="header-center">
+        <div id="timer-badge" class="timer-badge">
+          <svg class="timer-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="timer-text" class="timer-text">30s</span>
+        </div>
+        <span id="active-bonus-pill" class="active-bonus-pill hidden">⚡ +3s</span>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-home" class="btn-icon" aria-label="Menu principal" title="Menu principal">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </button>
+        <button id="btn-help" class="btn-icon" aria-label="Règles du jeu" title="Règles du jeu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+        <button id="btn-restart" class="btn-icon" aria-label="Recommencer le niveau" title="Recommencer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Bannière d'objectif et progression -->
+    <section class="mission-bar">
+      <h1 class="mission-title">Remplissez 100% de la grille !</h1>
+      <div class="progress-container">
+        <div class="progress-bar-bg">
+          <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+        <span id="progress-text" class="progress-text">0 / 9 cases (0%)</span>
+      </div>
+    </section>
+
+    <!-- Plateau de jeu -->
+    <main class="game-area">
+      <div class="board-wrapper">
+        <div id="game-board" class="game-board">
+          <!-- Injecté dynamiquement par JavaScript -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Guide interactif & feedback tactile -->
+    <footer class="game-footer">
+      <div id="feedback-badge" class="feedback-badge">
+        <span id="feedback-icon" class="feedback-icon">👉</span>
+        <span id="hint-text" class="hint-text">Touchez une flèche pour propulser sa couleur</span>
+      </div>
+    </footer>
+
+    <!-- Overlay de Victoire de Niveau avec Étoiles /5 et Bonus de Vitesse -->
+    <div id="victory-modal" class="modal-overlay hidden" aria-hidden="true">
+      <div class="modal-card">
+        <!-- Notation en étoiles animées / 5 -->
+        <div id="stars-container" class="stars-container">
+          <div class="star-slot" data-star="1">★</div>
+          <div class="star-slot" data-star="2">★</div>
+          <div class="star-slot" data-star="3">★</div>
+          <div class="star-slot" data-star="4">★</div>
+          <div class="star-slot" data-star="5">★</div>
+        </div>
+
+        <h2 id="victory-title" class="victory-title">Niveau terminé !</h2>
+        <p id="victory-time-summary" class="victory-time-summary">Temps : 8.5s / 30s</p>
+
+        <!-- Carte bonus de vitesse ultra-satisfaisante -->
+        <div id="speed-bonus-card" class="speed-bonus-card hidden">
+          <div class="bonus-header">
+            <span class="bonus-sparkle">✨</span>
+            <span class="bonus-tag">SUPER RAPIDE !</span>
+            <span class="bonus-sparkle">✨</span>
+          </div>
+          <p class="bonus-desc">+3s ajoutées au prochain niveau !</p>
+          <div id="bonus-streak-badge" class="bonus-streak-badge">⚡ Bonus cumulé : +3s</div>
+        </div>
+
+        <!-- Score de la run dans le modal de victoire -->
+        <div class="victory-score-pill">
+          <span class="score-pill-label">Score actuel</span>
+          <span id="victory-score-text" class="score-pill-val">0 pts</span>
+        </div>
+
+        <button id="btn-next-level" class="btn-primary">
+          <span>Niveau suivant</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay de Défaite (Temps Écoulé - Fin de la Run) -->
+    <div id="defeat-modal" class="modal-overlay hidden" aria-hidden="true">
+      <div class="modal-card modal-card-defeat">
+        <div class="defeat-icon-wrapper">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h2 class="defeat-title">Temps écoulé !</h2>
+        <p class="defeat-subtitle">
+          Votre run s'arrête ici.<br>
+          Score : <strong id="defeat-final-score">0</strong> points (Niveau <span id="defeat-final-level">1</span>)<br>
+          <span id="defeat-best-score" class="defeat-best-tag">🏆 Meilleur score : 0 pts</span>
+        </p>
+        <button id="btn-retry-level" class="btn-primary btn-retry">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          <span>Recommencer au Niveau 1</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
